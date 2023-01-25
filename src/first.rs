@@ -1,4 +1,5 @@
 fn sort(x: &mut [u32], up: bool) {
+    // TODO: 要素数が2のべき乗でなければpanic
     if x.len() > 1 {
         let mid_point = x.len() / 2;
         sort(&mut x[..mid_point], true);
@@ -22,5 +23,25 @@ fn compare_and_swap(x: &mut [u32], up: bool) {
         if (x[i] > x[mid_point + i]) == up {
             x.swap(i, mid_point + i); // 標準関数
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::sort; // 親モジュールのsort関数を利用する。
+
+    #[test]
+    fn sort_u32_ascending() {
+        // 要素数が2のべき乗じゃないと駄目
+        let mut x = vec![10, 30, 11, 20, 4, 330, 21, 110];
+        sort(&mut x, true);
+        assert_eq!(x, vec![4, 10, 11, 20, 21, 30, 110, 330]);
+    }
+
+    #[test]
+    fn sort_u32_descending() {
+        let mut x = vec![10, 30, 11, 20, 4, 330, 21, 110];
+        sort(&mut x, false);
+        assert_eq!(x, vec![330, 110, 30, 21, 20, 11, 10, 4]);
     }
 }
