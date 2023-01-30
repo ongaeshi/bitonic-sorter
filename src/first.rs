@@ -1,4 +1,4 @@
-fn sort(x: &mut [u32], up: bool) {
+pub fn sort(x: &mut [u32], up: bool) {
     // TODO: 要素数が2のべき乗でなければpanic
     if x.len() > 1 {
         let mid_point = x.len() / 2;
