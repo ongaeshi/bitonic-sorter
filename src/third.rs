@@ -107,4 +107,24 @@ mod tests {
 
         assert_eq!(x, expected);
     }
+
+    #[test]
+    fn sort_stdudents_by_name_ascending() {
+        let taro = Student::new("Taro", "Yamada", 16);
+        let hanako = Student::new("Hanako", "Yamada", 14);
+        let kyoko = Student::new("Kyoko", "Ito", 15);
+        let ryosuke = Student::new("Ryosuke", "Hayashi", 17);
+
+        let mut x = vec![&taro, &hanako, &kyoko, &ryosuke];
+        let expected = vec![&hanako, &kyoko, &taro, &ryosuke];
+
+        assert_eq!(
+            sort_by(&mut x,
+                &|a, b| a.last_name.cmp(&b.last_name)
+                .then_with(|| a.first_name.cmp(&b.first_name))),
+            Ok(())
+        );
+
+        assert_eq!(x, expected);
+    }    
 }
