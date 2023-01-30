@@ -1,4 +1,4 @@
-fn sort(x: &mut [u32], up: bool) {
+fn sort<T: Ord>(x: &mut [T], up: bool) {
     // TODO: 要素数が2のべき乗でなければpanic
     if x.len() > 1 {
         let mid_point = x.len() / 2;
@@ -8,7 +8,7 @@ fn sort(x: &mut [u32], up: bool) {
     }
 }
 
-fn sub_sort(x: &mut [u32], up: bool) {
+fn sub_sort<T: Ord>(x: &mut [T], up: bool) {
     if x.len() > 1 { 
         compare_and_swap(x, up);
         let mid_point = x.len() / 2;
@@ -17,7 +17,7 @@ fn sub_sort(x: &mut [u32], up: bool) {
     }
 }
 
-fn compare_and_swap(x: &mut [u32], up: bool) {
+fn compare_and_swap<T: Ord>(x: &mut [T], up: bool) {
     let mid_point = x.len() / 2;
     for i in 0..mid_point {
         if (x[i] > x[mid_point + i]) == up {
@@ -35,7 +35,7 @@ mod tests {
         // 要素数が2のべき乗じゃないと駄目
         let mut x: Vec<u32> = vec![10, 30, 11, 20, 4, 330, 21, 110];
         sort(&mut x, true);
-        assert_eq!(x, vec![4, 10, 11, 20, 21, 30, 110, 330]);
+        assert_eq!(x, vec![4, 10, 11, 20, 21, 30, 110, 331]);
     }
 
     #[test]
